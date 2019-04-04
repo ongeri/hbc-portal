@@ -1,11 +1,19 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
+import {Route, Switch} from "react-router";
+import {BrowserRouter} from "react-router-dom";
+import App from './components/App/App';
+import AuthPage from "./components/auth/AuthPage/AuthPage";
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
+    <BrowserRouter>
+        <Switch>
+            <Route exact={true} path="/" component={App}/>
+            <Route exact={true} path="/auth" component={AuthPage}/>
+        </Switch>
+    </BrowserRouter>,
+    document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
