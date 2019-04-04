@@ -5,13 +5,15 @@ import {BrowserRouter} from "react-router-dom";
 import App from './components/App/App';
 import AuthPage from "./components/auth/AuthPage/AuthPage";
 import './index.css';
+import 'bootstrap'
+
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
             <Route exact={true} path="/" component={App}/>
-            <Route exact={true} path="/auth" component={AuthPage}/>
+            <Route path="/auth" component={AuthPage}/>
         </Switch>
     </BrowserRouter>,
     document.getElementById('root') as HTMLElement
