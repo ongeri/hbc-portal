@@ -23,7 +23,7 @@ class LoginForm extends React.Component<Props, ComponentState> {
     }
 
     public render() {
-        return (<div className={"col-md loginForm mx-auto "}>
+        return (<div className={"col-md authPanel mx-auto "}>
                 <img className={"thumbnail mx-auto "} src={"/images/county_logo.png"} width="120px" height="120px"
                 />
                 <h5 className={"authTitle"}>Welcome Back</h5>
@@ -55,7 +55,7 @@ class LoginForm extends React.Component<Props, ComponentState> {
                             style={{display: "block", color: "white"}}>Login
                     </button>
                 </form>
-                <Link to="/auth/forgot_password" style={{color: "orange", textAlign: "center", display: "block"}}>Forgot
+                <Link to="/auth/recover" style={{color: "orange", textAlign: "center", display: "block"}}>Forgot
                     password?</Link>
             </div>
         );

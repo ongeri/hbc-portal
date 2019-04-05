@@ -20,3 +20,17 @@ body {
     display: block;
     text-align: center;
 }
+
+.authPanel {
+    max-width: 380px;
+    background: #F8F8F8;
+    border-radius: 5px;
+    padding: 30px 30px 80px;
+}
+
+.authPanel form {
+    border-top: 2px solid orange;
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+}

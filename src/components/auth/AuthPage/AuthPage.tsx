@@ -31,7 +31,7 @@ class AuthPage extends React.Component<Props, ComponentState> {
                 <Switch>
                     <Redirect exact={true} from="/auth" to="/auth/login"/>
                     <Route path="/auth/login" component={LoginForm}/>
-                    <Route path={this.props.match.path + "/forgot_password"} component={ResetPasswordForm}/>
+                    <Route path="/auth/recover" component={ResetPasswordForm}/>
                 </Switch>
             </div>
         );
