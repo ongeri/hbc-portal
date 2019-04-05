@@ -5,7 +5,6 @@ import {BrowserRouter} from "react-router-dom";
 import App from './components/App/App';
 import AuthPage from "./components/auth/AuthPage/AuthPage";
 import './index.css';
-import 'bootstrap'
 
 import registerServiceWorker from './registerServiceWorker';
 

@@ -1,0 +1,22 @@
+body {
+    background-image: url("/images/authpage_background.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.authPage {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+.authTitle {
+    font-weight: 600;
+    color: #00455f;
+    display: block;
+    text-align: center;
+}
