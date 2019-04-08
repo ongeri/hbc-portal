@@ -3,6 +3,7 @@ import {ComponentState} from "react";
 import {Link, RouteComponentProps} from "react-router-dom";
 import "./ResetPasswordForm.css"
 import {ErrorMessage, Field, Form, Formik} from "formik";
+import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
 
 interface MatchParams {
     name: string;
@@ -30,16 +31,8 @@ class ResetPasswordForm extends React.Component<Props, ComponentState> {
             <h5 className={"authTitle"}>Recover Password</h5>
             <small>Enter your email below to get a temporary password.</small>
             <Formik
+                validationSchema={emailValidationSchema}
                 initialValues={{email: ""}}
-                validate={values => {
-                    const errors: any = {};// Beware, if this has default non-null values validation will never allow form submission
-                    if (!values.email) {
-                        errors.email = 'Email is required';
-                    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                        errors.email = 'Invalid email address';
-                    }
-                    return errors;
-                }}
                 onSubmit={(values, {setSubmitting}) => {
                     console.log("Form submit clicked with the following values: ", values);
                     setTimeout(() => {
