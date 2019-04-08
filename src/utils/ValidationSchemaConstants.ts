@@ -3,6 +3,6 @@ import * as yup from 'yup';
 export const emailValidationSchema = yup.object().shape({
     email: yup
         .string()
-        .email("The entered email is not valid")
+        .email("This is not a valid email")
         .required("An email is required")
 });

@@ -4,6 +4,7 @@ import {Link, RouteComponentProps} from "react-router-dom";
 import "./ResetPasswordForm.css"
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
+import axios from 'axios'
 
 interface MatchParams {
     name: string;
@@ -35,19 +36,33 @@ class ResetPasswordForm extends React.Component<Props, ComponentState> {
                 initialValues={{email: ""}}
                 onSubmit={(values, {setSubmitting}) => {
                     console.log("Form submit clicked with the following values: ", values);
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
+                    // Make a request for a user with a given ID
+                    axios.post(process.env.REACT_APP_BASE_URL + '/authentication', {
+                        username: values.email,
+                        password: 'Flintstone'
+                    })
+                        .then(function (response) {
+                            // handle success
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .then(function () {
+                            // always executed
+                            console.log("An api request was completed");
+                            setSubmitting(false);
+                        });
                 }}
             >
                 {({isSubmitting}) => <Form>
                     <div className="form-group mb-3">
                         <div className="input-group">
                             <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">
-                                    <span className="oi oi-person"/>
-                                </span>
+                    <span className="input-group-text" id="basic-addon1">
+                    <span className="oi oi-person"/>
+                    </span>
                             </div>
                             <Field type="email"
                                    name="email"

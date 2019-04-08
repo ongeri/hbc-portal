@@ -4,6 +4,7 @@ import "./LoginForm.css"
 import {Link, RouteComponentProps} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
+import axios from "axios";
 
 interface MatchParams {
     name: string;
@@ -31,13 +32,30 @@ class LoginForm extends React.Component<Props, ComponentState> {
                 <h5 className={"authTitle"}>Welcome Back</h5>
                 <Formik
                     validationSchema={emailValidationSchema}
-                    initialValues={{email: ""}} // Note that passwords should not be validated except in sign up forms
+                    initialValues={{
+                        email: "",
+                        password: ""
+                    }} // Note that passwords should not be validated except in sign up forms
                     onSubmit={(values, {setSubmitting}) => {
                         console.log("Form submit clicked with the following values: ", values);
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        // Make a request for a user with a given ID
+                        axios.post(process.env.REACT_APP_BASE_URL + '/authentication', {
+                            username: values.email,
+                            password: values.password
+                        })
+                            .then(function (response) {
+                                // handle success
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                // handle error
+                                console.log(error);
+                            })
+                            .then(function () {
+                                // always executed
+                                console.log("An api request was completed");
+                                setSubmitting(false);
+                            });
                     }}
                 >
                     {() => <Form>
@@ -65,7 +83,7 @@ class LoginForm extends React.Component<Props, ComponentState> {
                                 </span>
                                 </div>
                                 <Field type="password"
-                                       name="email"
+                                       name="password"
                                        id="password"
                                        className="form-control"
                                        placeholder="Password"/>
