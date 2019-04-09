@@ -12,6 +12,7 @@ import {Provider} from "react-redux";
 import thunkMiddleware from 'redux-thunk'
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import rootReducer from "./redux/reducers";
+import DashBoard from "./components/DashBoard/DashBoard";
 
 // const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -23,7 +24,8 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <PrivateRoute exact={true} path="/" component={App}/>
+                <Route exact={true} path="/" component={App}/>
+                <PrivateRoute exact={true} path="/dashboard" component={DashBoard}/>
                 <Route path="/auth" component={AuthPage}/>
             </Switch>
         </BrowserRouter>

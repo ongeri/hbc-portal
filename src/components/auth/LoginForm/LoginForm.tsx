@@ -43,7 +43,6 @@ type State = InternalState & StateProps;
 class LoginForm extends React.Component<Props, State> {
     constructor(props: Props, context: any) {
         super(props, context);
-        this.state = {loggedIn: false};
     }
 
     render() {

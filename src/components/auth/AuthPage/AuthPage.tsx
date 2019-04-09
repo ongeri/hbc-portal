@@ -33,6 +33,7 @@ class AuthPage extends React.Component<Props, ComponentState> {
                     <Route path="/auth/login" component={LoginForm}/>
                     <Route path="/auth/recover" component={ResetPasswordForm}/>
                 </Switch>
+                <img className={"powered-by-logo"} src={"/images/powered_by_interswitch.png"}/>
             </div>
         );
     }

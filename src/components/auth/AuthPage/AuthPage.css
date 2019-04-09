@@ -1,12 +1,10 @@
-body {
+.authPage {
     background-image: url("/images/authpage_background.png");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
 
-.authPage {
     min-height: 100%; /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
 
@@ -33,4 +31,13 @@ body {
     background: white;
     padding: 15px;
     margin-bottom: 20px;
+}
+
+.powered-by-logo {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 10px;
 }

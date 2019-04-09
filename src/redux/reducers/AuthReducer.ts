@@ -1,5 +1,5 @@
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from "../actions/login_actions";
-import {LOGOUT_SUCCESS} from "../actions/logout_actions";
+import {LOGOUT_REQUEST, LOGOUT_SUCCESS} from "../actions/logout_actions";
 import {AppAction} from "../actions/ActionTypes";
 import {User} from "../../models/User";
 
@@ -39,9 +39,14 @@ export function authReducer(state: AuthState = initialAuthState, action: AppActi
                 isAuthenticated: false,
                 errorMessage: action.message
             });
-        case LOGOUT_SUCCESS:
+        case LOGOUT_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
+                isAuthenticated: false
+            });
+        case LOGOUT_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
                 isAuthenticated: false
             });
         default:
