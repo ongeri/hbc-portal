@@ -1,25 +1,25 @@
-import {combineReducers} from 'redux'
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from "../actions/login_actions";
 import {LOGOUT_SUCCESS} from "../actions/logout_actions";
 import {AppAction} from "../actions/ActionTypes";
-import {User} from "../models/User";
+import {User} from "../../models/User";
 
 
-export type ApplicationState = Readonly<{
+export type AuthState = Readonly<{
     isFetching: boolean,
     isAuthenticated: boolean,
     user?: User
 }>
 // The starting state sets authentication based on a token being in local storage.
 // In a real app,we would also want a util to check if the token is expired.
-const initialState: ApplicationState = {
+const initialAuthState: AuthState = {
     isFetching: false,
     isAuthenticated: !!localStorage.getItem('id_token')
 };
 
 // The authReducer reducer.
-function authReducer(state: ApplicationState = initialState, action: AppAction): ApplicationState {
+export function authReducer(state: AuthState = initialAuthState, action: AppAction): AuthState {
     console.error("Auth reducer action " + action.type + " has been received");
+    console.warn("Current state: ", state);
     switch (action.type) {
         case LOGIN_REQUEST:
             return Object.assign({}, state, {
@@ -45,22 +45,7 @@ function authReducer(state: ApplicationState = initialState, action: AppAction):
                 isAuthenticated: false
             });
         default:
+            console.error("Returning unchanged state for action: ", action);
             return state
     }
 }
-
-// The quotesReducer reducer
-function quotesReducer(state = {}, action: any) {
-    switch (action.type) {
-        default:
-            return state
-    }
-}
-
-// We combine the reducers here so that they can be left split apart above
-const rootReducer = combineReducers({
-    authReducer: authReducer,
-    quotesReducer: quotesReducer
-});
-
-export default rootReducer

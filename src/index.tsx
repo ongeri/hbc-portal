@@ -9,8 +9,9 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import {applyMiddleware, createStore} from "redux";
 import {Provider} from "react-redux";
-import rootReducer from "./reducers/reducer";
 import thunkMiddleware from 'redux-thunk'
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import rootReducer from "./redux/reducers";
 
 // const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -22,7 +23,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact={true} path="/" component={App}/>
+                <PrivateRoute exact={true} path="/" component={App}/>
                 <Route path="/auth" component={AuthPage}/>
             </Switch>
         </BrowserRouter>

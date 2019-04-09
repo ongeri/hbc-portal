@@ -4,9 +4,9 @@ import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
 import {Dispatch} from "redux";
-import {attemptLogin} from "../../../actions/login_actions";
+import {attemptLogin} from "../../../redux/actions/login_actions";
 import {connect} from "react-redux";
-import {ApplicationState} from "../../../reducers/reducer";
+import {AuthState} from "../../../redux/reducers/AuthReducer";
 import * as H from "history";
 
 interface MatchParams {
@@ -28,6 +28,7 @@ interface DispatchProps {
 
 // Props from redux store state
 interface StateProps {
+    loggedIn: boolean;
 }
 
 type Props = StateProps & DispatchProps & StateProps & OwnProps & RouteComponentProps<MatchParams>
@@ -35,10 +36,11 @@ type Props = StateProps & DispatchProps & StateProps & OwnProps & RouteComponent
 
 // Internal state of component
 interface InternalState {
-    loggedIn: boolean;
 }
 
-class LoginForm extends React.Component<Props, InternalState> {
+type State = InternalState & StateProps;
+
+class LoginForm extends React.Component<Props, State> {
     constructor(props: Props, context: any) {
         super(props, context);
         this.state = {loggedIn: false};
@@ -112,8 +114,8 @@ class LoginForm extends React.Component<Props, InternalState> {
 }
 
 
-function mapStateToProps(state: ApplicationState, ownProps: OwnProps): StateProps {
-    return {};
+function mapStateToProps(state: AuthState, ownProps: OwnProps): StateProps {
+    return {loggedIn: state.isAuthenticated};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<any>, ownProps: OwnProps): DispatchProps {
