@@ -1,10 +1,13 @@
 import * as React from "react";
-import {ComponentState} from "react";
 import "./LoginForm.css"
-import {Link, RouteComponentProps} from "react-router-dom";
+import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
-import axios from "axios";
+import {Dispatch} from "redux";
+import {attemptLogin} from "../../../actions/login_actions";
+import {connect} from "react-redux";
+import {ApplicationState} from "../../../reducers/reducer";
+import * as H from "history";
 
 interface MatchParams {
     name: string;
@@ -18,15 +21,32 @@ export interface OwnProps {
 interface StateProps {
 }
 
-type Props = StateProps & OwnProps & RouteComponentProps<MatchParams>
+// Interface to collect actions that can be done to redux store by this component
+interface DispatchProps {
+    attemptLogin: (history: H.History, credentials: LoginCredentials) => void
+}
 
-class LoginForm extends React.Component<Props, ComponentState> {
+// Props from redux store state
+interface StateProps {
+}
+
+type Props = StateProps & DispatchProps & StateProps & OwnProps & RouteComponentProps<MatchParams>
+
+
+// Internal state of component
+interface InternalState {
+    loggedIn: boolean;
+}
+
+class LoginForm extends React.Component<Props, InternalState> {
     constructor(props: Props, context: any) {
         super(props, context);
+        this.state = {loggedIn: false};
     }
 
-    public render() {
-        return (<div className={"col-md authPanel mx-auto "}>
+    render() {
+        return (
+            <div className={"col-md authPanel mx-auto "}>
                 <img className={"thumbnail mx-auto "} src={"/images/county_logo.png"} width="120px" height="120px"
                 />
                 <h5 className={"authTitle"}>Welcome Back</h5>
@@ -38,24 +58,13 @@ class LoginForm extends React.Component<Props, ComponentState> {
                     }} // Note that passwords should not be validated except in sign up forms
                     onSubmit={(values, {setSubmitting}) => {
                         console.log("Form submit clicked with the following values: ", values);
-                        // Make a request for a user with a given ID
-                        axios.post(process.env.REACT_APP_BASE_URL + '/authentication', {
-                            username: values.email,
-                            password: values.password
-                        })
-                            .then(function (response) {
-                                // handle success
-                                console.log(response);
-                            })
-                            .catch(function (error) {
-                                // handle error
-                                console.log(error);
-                            })
-                            .then(function () {
-                                // always executed
-                                console.log("An api request was completed");
-                                setSubmitting(false);
-                            });
+                        this.props.attemptLogin(
+                            this.props.history,
+                            {
+                                username: values.email,
+                                password: values.password
+                            }
+                        );
                     }}
                 >
                     {() => <Form>
@@ -102,4 +111,14 @@ class LoginForm extends React.Component<Props, ComponentState> {
     }
 }
 
-export default LoginForm;
+
+function mapStateToProps(state: ApplicationState, ownProps: OwnProps): StateProps {
+    return {};
+}
+
+function mapDispatchToProps(dispatch: Dispatch<any>, ownProps: OwnProps): DispatchProps {
+    return {attemptLogin: (history, credentials) => dispatch(attemptLogin(history, credentials))};
+}
+
+// export default LoginForm;
+export default withRouter(connect<StateProps, (dispatch: Dispatch<any>, ownProps: OwnProps) => DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(LoginForm));
