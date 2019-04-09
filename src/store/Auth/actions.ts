@@ -7,6 +7,10 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+
 function requestLogin(loginCredentials: LoginCredentials) {
     return {
         type: LOGIN_REQUEST,
@@ -34,10 +38,37 @@ function loginError(message: APIError) {
     }
 }
 
+function requestLogout() {
+    return {
+        type: LOGOUT_REQUEST,
+        isFetching: true,
+        isAuthenticated: true
+    }
+}
+
+function receiveLogout() {
+    return {
+        type: LOGOUT_SUCCESS,
+        isFetching: false,
+        isAuthenticated: false
+    }
+}
+
+
+// Logs the user out
+export function logoutUser() {
+    return (dispatch: Dispatch<any>) => {
+        dispatch(requestLogout());
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('access_token');
+        dispatch(receiveLogout())
+    }
+}
+
 // Calls the API to get a token and dispatches actions along the way
 export function attemptLogin(history: H.History, loginCredentials: LoginCredentials) {
     return (dispatch: Dispatch<any>) => {
-        console.warn("Attempt login called as redux action");
+        console.warn("Attempt login called as store action");
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(loginCredentials));
         return axios.post(process.env.REACT_APP_BASE_URL + '/authentication', loginCredentials, {

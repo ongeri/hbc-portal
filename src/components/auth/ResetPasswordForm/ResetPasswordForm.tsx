@@ -14,7 +14,7 @@ interface MatchParams {
 export interface OwnProps {
 }
 
-// Props from redux store state
+// Props from store store state
 interface StateProps {
 }
 

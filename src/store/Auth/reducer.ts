@@ -1,6 +1,5 @@
-import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from "../actions/login_actions";
-import {LOGOUT_REQUEST, LOGOUT_SUCCESS} from "../actions/logout_actions";
-import {AppAction} from "../actions/ActionTypes";
+import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST, LOGOUT_SUCCESS} from "./actions";
+import {AuthAction} from "./types";
 import {User} from "../../models/User";
 
 
@@ -17,7 +16,7 @@ const initialAuthState: AuthState = {
 };
 
 // The authReducer reducer.
-export function authReducer(state: AuthState = initialAuthState, action: AppAction): AuthState {
+export function authReducer(state: AuthState = initialAuthState, action: AuthAction): AuthState {
     console.error("Auth reducer action " + action.type + " has been received");
     console.warn("Current state: ", state);
     switch (action.type) {

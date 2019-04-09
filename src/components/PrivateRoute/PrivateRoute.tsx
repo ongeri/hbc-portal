@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {Redirect, Route, RouteComponentProps, RouteProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {RootReducer} from "../../redux/reducers";
+import {RootReducer} from "../../store";
 
-// Props from redux store state
+// Props from store store state
 interface StateProps {
     loggedIn: boolean
 }

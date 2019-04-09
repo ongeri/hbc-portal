@@ -3,7 +3,7 @@ import "./Header.css"
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {requestLogout} from "../../redux/actions/logout_actions";
+import {logoutUser} from "../../store/Auth/actions";
 
 interface MatchParams {
     name: string;
@@ -13,13 +13,13 @@ interface MatchParams {
 export interface OwnProps {
 }
 
-// Props from redux store state
+// Props from store store state
 interface StateProps {
 }
 
-// Interface to collect actions that can be done to redux store by this component
+// Interface to collect actions that can be done to store store by this component
 interface DispatchProps {
-    requestLogout: () => void
+    requestLogout: () => void;
 }
 
 type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps<MatchParams>
@@ -49,7 +49,7 @@ class Header extends React.Component<Props, State> {
 }
 
 function mapDispatchToProps(dispatch: Dispatch<any>, ownProps: OwnProps): DispatchProps {
-    return {requestLogout: () => dispatch(requestLogout())};
+    return {requestLogout: () => dispatch(logoutUser())};
 }
 
 export default withRouter(connect<StateProps, (dispatch: Dispatch<any>, ownProps: OwnProps) => DispatchProps, OwnProps>(null, mapDispatchToProps)(Header));

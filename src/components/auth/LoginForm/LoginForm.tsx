@@ -4,9 +4,9 @@ import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
 import {Dispatch} from "redux";
-import {attemptLogin} from "../../../redux/actions/login_actions";
+import {attemptLogin} from "../../../store/Auth/actions";
 import {connect} from "react-redux";
-import {AuthState} from "../../../redux/reducers/AuthReducer";
+import {AuthState} from "../../../store/Auth/reducer";
 import * as H from "history";
 
 interface MatchParams {
@@ -17,21 +17,21 @@ interface MatchParams {
 export interface OwnProps {
 }
 
-// Props from redux store state
+// Props from store store state
 interface StateProps {
 }
 
-// Interface to collect actions that can be done to redux store by this component
+// Interface to collect actions that can be done to store store by this component
 interface DispatchProps {
     attemptLogin: (history: H.History, credentials: LoginCredentials) => void
 }
 
-// Props from redux store state
+// Props from store store state
 interface StateProps {
     loggedIn: boolean;
 }
 
-type Props = StateProps & DispatchProps & StateProps & OwnProps & RouteComponentProps<MatchParams>
+type Props = DispatchProps & OwnProps & RouteComponentProps<MatchParams>
 
 
 // Internal state of component
