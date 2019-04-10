@@ -1,7 +1,6 @@
 // There are three possible states for our logins process and we need actions for each of them
 import axios, {AxiosResponse} from "axios";
 import {Dispatch} from "redux";
-import * as H from "history";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -66,7 +65,7 @@ export function logoutUser() {
 }
 
 // Calls the API to get a token and dispatches actions along the way
-export function attemptLogin(history: H.History, loginCredentials: LoginCredentials) {
+export function attemptLogin(loginCredentials: LoginCredentials) {
     return (dispatch: Dispatch<any>) => {
         console.warn("Attempt login called as store action");
         // We dispatch requestLogin to kickoff the call to the API
@@ -83,7 +82,6 @@ export function attemptLogin(history: H.History, loginCredentials: LoginCredenti
                 localStorage.setItem('id_token', response.data.token);
                 // Dispatch the success action
                 dispatch(receiveLogin(response.data.token));
-                history.push('/');
             })
             .catch(error => {
                 // handle error

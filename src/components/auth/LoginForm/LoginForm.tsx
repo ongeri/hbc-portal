@@ -1,13 +1,12 @@
 import * as React from "react";
 import "./LoginForm.css"
-import {Link, RouteComponentProps, withRouter} from "react-router-dom";
+import {Link, Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {emailValidationSchema} from "../../../utils/ValidationSchemaConstants";
 import {Dispatch} from "redux";
 import {attemptLogin} from "../../../store/Auth/actions";
 import {connect} from "react-redux";
-import {AuthState} from "../../../store/Auth/reducer";
-import * as H from "history";
+import {RootState} from "../../../store";
 
 interface MatchParams {
     name: string;
@@ -19,19 +18,15 @@ export interface OwnProps {
 
 // Props from store store state
 interface StateProps {
+    loggedIn: boolean;
 }
 
 // Interface to collect actions that can be done to store store by this component
 interface DispatchProps {
-    attemptLogin: (history: H.History, credentials: LoginCredentials) => void
+    attemptLogin: (credentials: LoginCredentials) => void
 }
 
-// Props from store store state
-interface StateProps {
-    loggedIn: boolean;
-}
-
-type Props = DispatchProps & OwnProps & RouteComponentProps<MatchParams>
+type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps<MatchParams>
 
 
 // Internal state of component
@@ -46,6 +41,11 @@ class LoginForm extends React.Component<Props, State> {
     }
 
     render() {
+        const {from} = this.props.location.state || {from: {pathname: '/dashboard'}};
+        if (this.props.loggedIn) {
+            console.warn("Redirecting from login page because user is already logged in");
+            return <Redirect to={from}/>
+        }
         return (
             <div className={"col-md authPanel mx-auto "}>
                 <img className={"thumbnail mx-auto "} src={"/images/county_logo.png"} width="120px" height="120px"
@@ -60,7 +60,6 @@ class LoginForm extends React.Component<Props, State> {
                     onSubmit={(values, {setSubmitting}) => {
                         console.log("Form submit clicked with the following values: ", values);
                         this.props.attemptLogin(
-                            this.props.history,
                             {
                                 username: values.email,
                                 password: values.password
@@ -113,12 +112,12 @@ class LoginForm extends React.Component<Props, State> {
 }
 
 
-function mapStateToProps(state: AuthState, ownProps: OwnProps): StateProps {
-    return {loggedIn: state.isAuthenticated};
+function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
+    return {loggedIn: state.authState.isAuthenticated};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<any>, ownProps: OwnProps): DispatchProps {
-    return {attemptLogin: (history, credentials) => dispatch(attemptLogin(history, credentials))};
+    return {attemptLogin: (history) => dispatch(attemptLogin(history))};
 }
 
 // export default LoginForm;

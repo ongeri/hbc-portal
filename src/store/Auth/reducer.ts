@@ -1,13 +1,6 @@
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST, LOGOUT_SUCCESS} from "./actions";
-import {AuthAction} from "./types";
-import {User} from "../../models/User";
+import {AuthAction, AuthState} from "./types";
 
-
-export type AuthState = Readonly<{
-    isFetching: boolean,
-    isAuthenticated: boolean,
-    user?: User
-}>
 // The starting state sets authentication based on a token being in local storage.
 // In a real app,we would also want a util to check if the token is expired.
 const initialAuthState: AuthState = {
@@ -15,8 +8,8 @@ const initialAuthState: AuthState = {
     isAuthenticated: !!localStorage.getItem('id_token')
 };
 
-// The authReducer reducer.
-export function authReducer(state: AuthState = initialAuthState, action: AuthAction): AuthState {
+// The authState reducer.
+export function authState(state: AuthState = initialAuthState, action: AuthAction): AuthState {
     console.error("Auth reducer action " + action.type + " has been received");
     console.warn("Current state: ", state);
     switch (action.type) {

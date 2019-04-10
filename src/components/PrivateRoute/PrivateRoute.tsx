@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Redirect, Route, RouteComponentProps, RouteProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {RootReducer} from "../../store";
+import {RootState} from "../../store";
 
 // Props from store store state
 interface StateProps {
@@ -31,7 +31,10 @@ class PrivateRoute extends Route<Props> {
         const renderComponent: RenderComponent = (props) => (
             this.props.loggedIn
                 ? <Component {...props} />
-                : <Redirect to='/auth/login'/>
+                : <Redirect to={{
+                    pathname: '/auth/login',
+                    state: {from: props.location}
+                }}/>
         );
 
         return (
@@ -40,8 +43,8 @@ class PrivateRoute extends Route<Props> {
     }
 }
 
-function mapStateToProps(state: RootReducer, ownProps: OwnProps): StateProps {
-    return {loggedIn: state.authReducer.isAuthenticated};
+function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
+    return {loggedIn: state.authState.isAuthenticated};
 }
 
 

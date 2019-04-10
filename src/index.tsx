@@ -11,14 +11,14 @@ import {applyMiddleware, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunkMiddleware from 'redux-thunk'
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import rootReducer from "./store/index";
+import rootState from "./store/index";
 import DashBoard from "./components/DashBoard/DashBoard";
 
-// const store = createStore(rootReducer, applyMiddleware(thunk));
+// const store = createStore(rootState, applyMiddleware(thunk));
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
-const store = createStoreWithMiddleware(rootReducer);
+const store = createStoreWithMiddleware(rootState);
 
 ReactDOM.render(
     <Provider store={store}>

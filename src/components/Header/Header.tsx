@@ -4,6 +4,7 @@ import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {logoutUser} from "../../store/Auth/actions";
+import {Link} from "react-router-dom";
 
 interface MatchParams {
     name: string;
@@ -40,6 +41,7 @@ class Header extends React.Component<Props, State> {
         return <header>
             A header section
             <button className={"btn btn-sm btn-primary"} onClick={this.tryLogout}> Sign Out</button>
+            <Link to='/'>Landing page</Link>
         </header>;
     }
 

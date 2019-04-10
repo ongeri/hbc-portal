@@ -1,16 +1,17 @@
 import {combineReducers} from "redux";
-import {authReducer, AuthState} from "./Auth/reducer";
-import {quotesReducer} from "./Quotes/reducer";
+import {authState} from "./Auth/reducer";
+import {quotesState} from "./Quotes/reducer";
+import {AuthState} from "./Auth/types";
 
-export interface RootReducer {
-    authReducer: AuthState,
-    quotesReducer: any
+export interface RootState {
+    authState: AuthState,
+    quotesState: any
 }
 
 // We combine the Quotes here so that they can be left split apart above
-const rootReducer = combineReducers<RootReducer>({
-    authReducer,
-    quotesReducer
+const rootState = combineReducers<RootState>({
+    authState: authState,
+    quotesState: quotesState
 });
 
-export default rootReducer
+export default rootState
