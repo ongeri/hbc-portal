@@ -6,15 +6,17 @@ import Header from "../Header/Header";
 class DashBoard extends React.Component {
     render() {
         return (
-            <div className={"row"}>
+            <div className="row ">
                 <SideNav/>
-                <div className={"col-md"}>
+                <div className="col-md dashboard-main">
                     <Header requestLogout={() => {
                     }}/>
-                    <div className={"row"} style={{backgroundColor: "cornsilk",}}>
-                        <p>
-                            Dashboard content
-                        </p>
+                    <div className="row">
+                        <div className="col-md">
+                            <p>
+                                Dashboard content
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -38,11 +38,13 @@ class Header extends React.Component<Props, State> {
     }
 
     render() {
-        return <header>
-            A header section
-            <button className={"btn btn-sm btn-primary"} onClick={this.tryLogout}> Sign Out</button>
-            <Link to='/'>Landing page</Link>
-        </header>;
+        return <div className="row">
+            <div className="col-md header">
+                A header section
+                <button className={"btn btn-sm btn-primary"} onClick={this.tryLogout}> Sign Out</button>
+                <Link to='/'>Landing page</Link>
+            </div>
+        </div>;
     }
 
     tryLogout = () => {

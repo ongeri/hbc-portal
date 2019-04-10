@@ -1,4 +1,6 @@
-header {
-    height: 50px;
+.header {
+    height: 55px;
     background: white;
+    border-bottom: 1px solid #00000010;
+    vertical-align: middle;
 }
