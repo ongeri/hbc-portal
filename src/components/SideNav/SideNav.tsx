@@ -4,9 +4,9 @@ import "./SideNav.css"
 class SideNav extends React.Component {
     render() {
         return (
-            <nav className={"open-sidenav"}>
+            <nav>
                 <div className="header">
-                    HBC
+                    HBC PORTAL
                 </div>
                 Sidenav</nav>
         );

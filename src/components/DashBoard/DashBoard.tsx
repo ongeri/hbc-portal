@@ -2,20 +2,21 @@ import * as React from 'react';
 import "./DashBoard.css"
 import SideNav from "../SideNav/SideNav";
 import Header from "../Header/Header";
+import TransactionsChart from "./TransactionsChart/TransactionsChart";
 
 class DashBoard extends React.Component {
     render() {
         return (
             <div className="row ">
-                <SideNav/>
-                <div className="col-md dashboard-main">
+                <div className="col-sm-3  open-sidenav">
+                    <SideNav/>
+                </div>
+                <div className="col-sm-9 dashboard-main">
                     <Header requestLogout={() => {
                     }}/>
                     <div className="row">
                         <div className="col-md">
-                            <p>
-                                Dashboard content
-                            </p>
+                            <TransactionsChart/>
                         </div>
                     </div>
                 </div>
