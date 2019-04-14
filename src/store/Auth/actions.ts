@@ -70,7 +70,7 @@ export function attemptLogin(loginCredentials: LoginCredentials) {
         console.warn("Attempt login called as store action");
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(loginCredentials));
-        return axios.post(process.env.REACT_APP_BASE_URL + '/authentication', loginCredentials, {
+        return axios.post(process.env.REACT_APP_BASE_URL + '/auth/login', loginCredentials, {
             headers: {
                 Authorization: 'Bearer ' + "asdfasd"
             }

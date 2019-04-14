@@ -47,10 +47,9 @@ class LoginForm extends React.Component<Props, State> {
             return <Redirect to={from}/>
         }
         return (
-            <div className={"col-md authPanel mx-auto "}>
-                <img className={"thumbnail mx-auto "} src={"/images/county_logo.png"} width="120px" height="120px"
-                />
-                <h5 className={"authTitle"}>Welcome Back</h5>
+            <div className="col-md authPanel mx-auto ">
+                <img className="thumbnail mx-auto " src="/images/county_logo.png"/>
+                <h5 className="authTitle">Welcome Back</h5>
                 <Formik
                     validationSchema={emailValidationSchema}
                     initialValues={{

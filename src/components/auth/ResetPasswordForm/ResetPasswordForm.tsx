@@ -27,9 +27,9 @@ class ResetPasswordForm extends React.Component<Props, ComponentState> {
     }
 
     render() {
-        return <div className={"col-md authPanel mx-auto "}>
-            <img className={"thumbnail mx-auto "} src={"/images/county_logo.png"} width="120px" height="120px"/>
-            <h5 className={"authTitle"}>Recover Password</h5>
+        return <div className="col-md authPanel mx-auto ">
+            <img className="thumbnail mx-auto " src="/images/county_logo.png" width="120px" height="120px"/>
+            <h5 className="authTitle">Recover Password</h5>
             <small>Enter your email below to get a temporary password.</small>
             <Formik
                 validationSchema={emailValidationSchema}
@@ -37,7 +37,7 @@ class ResetPasswordForm extends React.Component<Props, ComponentState> {
                 onSubmit={(values, {setSubmitting}) => {
                     console.log("Form submit clicked with the following values: ", values);
                     // Make a request for a user with a given ID
-                    axios.post(process.env.REACT_APP_BASE_URL + '/authentication', {
+                    axios.post(process.env.REACT_APP_BASE_URL + '/auth/reset', {
                         username: values.email,
                         password: 'Flintstone'
                     })

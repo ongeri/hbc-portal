@@ -27,13 +27,13 @@ class AuthPage extends React.Component<Props, ComponentState> {
     public render() {
         console.log("Rendering authPage", this.props.match.path);
         return (
-            <div className={"row authPage"}>
+            <div className="row authPage">
                 <Switch>
                     <Redirect exact={true} from="/auth" to="/auth/login"/>
                     <Route path="/auth/login" component={LoginForm}/>
                     <Route path="/auth/recover" component={ResetPasswordForm}/>
                 </Switch>
-                <img className={"powered-by-logo"} src={"/images/powered_by_interswitch.png"}/>
+                <img className="powered-by-logo" src="/images/powered_by_interswitch.png"/>
             </div>
         );
     }
